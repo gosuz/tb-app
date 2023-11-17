@@ -4,13 +4,46 @@ $sets = "3 sets";
 // Input from the user
 // Convert the input we got from a string -> integers
 
-// Create the isset or not isset
+$exerciseNameArray = $_POST['exerciseName'];
+$oneRmArray = $_POST['oneRm'];
+// is the key oneRm? or the position??
 
 // When page loads, input will be empty but don't give an error
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){ // checking to see if form has been submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){ // checking to see if form has been submitted
+  // At least 1 1RM and 1 exercise name needs to be submitted
 
+  // if there is less than one item in the array, print the error
+
+  // '' will give me FALSE
+  // if '' is false at least twice, print, print error
+  // false twice
   
+  $emptyCount1 = 0;
+  foreach ($exerciseNameArray as $exercise) {
+    if ($exercise === ''){
+      $emptyCount1 = $emptyCount1+1;
+    }
+  }
+
+  $emptyCount2 = 0;
+  foreach ($oneRmArray as $oneRm) {
+    if ($oneRm === ''){
+      $emptyCount2 = $emptyCount2+1;
+    }
+  }
+
+  if(($emptyCount1 < 3)  && ($emptyCount2 < 3)){
+    echo "Thanks for entering info";
+  } else{
+    var_dump($emptyCount1)."<br>";
+    var_dump($emptyCount2)."<br>";
+    echo '<p class = "error">Error, name at least one exercise and one rep max </p>';
+  }
 }
+  // $emptyCount2 = 0;
+  // foreach($oneRmArray as $oneRm) {
+  //   if (array_filter())
+  // }
 
 
   // If they submitted an answer
@@ -20,10 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){ // checking to see if form has been 
 
 
 
-if ($_POST['oneRm'] === NULL) {
-  $oneRm = array_map('intval', $_POST['oneRm']);
-  var_dump($oneRm);
-}
+// if ($_POST['oneRm'] === NULL) {
+//   $oneRm = array_map('intval', $_POST['oneRm']);
+//   var_dump($oneRm);
+// }
 
 
 // Create template for 70/75/80%
@@ -73,6 +106,7 @@ if ($_POST['oneRm'] === NULL) {
 <html>
   <head>
     <title>Welcome to the TB workout generator!!</title>
+    <link rel="stylesheet" type="text/css" href="style.php"/>
   </head>
   <body>
   <div class="container">
@@ -81,7 +115,7 @@ if ($_POST['oneRm'] === NULL) {
       <!-- Exercise 1 input -->
       <p>
       <label for="exerciseName">Enter the name of your selected exercise: </label>
-      <input type = "text" id="exerciseName" name="exerciseName" placeholder="E.g. Bench Press" value="">
+      <input type = "text" id="exerciseName" name="exerciseName[]" placeholder="E.g. Bench Press" value="">
       </p>
     <!-- Whats going to be inlcuded in the value for the input type of text-->
       <label for = "oneRm">Enter your one rep max (in kg): </label>
@@ -91,7 +125,7 @@ if ($_POST['oneRm'] === NULL) {
       <!-- Exercise 2 input -->
       <p>
       <label for="exerciseName">Enter the name of your selected exercise: </label>
-      <input type = "text" id="exerciseName" name="exerciseName" placeholder="E.g. Squats" value = "">
+      <input type = "text" id="exerciseName" name="exerciseName[]" placeholder="E.g. Squats" value = "">
       </p>
       <p>
         <label for = "oneRm">Enter your one rep max (in kg): </label>
@@ -101,7 +135,7 @@ if ($_POST['oneRm'] === NULL) {
       <!-- Exercise 3 input -->
       <p>
         <label for="">Enter the name of your selected exercise: </label>
-        <input type="text" id = "exerciseName" name="exerciseName" placeholder="E.g. RDL" value="">
+        <input type="text" id = "exerciseName" name="exerciseName[]" placeholder="E.g. RDL" value="">
       </p>
 
       <p>
