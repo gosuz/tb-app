@@ -1,6 +1,8 @@
 <?php
 // Set the variables that repeat
-$sets = "3 sets";
+$setsReps70_80 = "3 sets x 5 reps";
+$setsReps85_90 = "3 sets x 3 reps";
+$setsReps95 = "3 sets x 1 rep";
 // Input from the user
 // Convert the input we got from a string -> integers
 
@@ -19,45 +21,65 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){ // checking to see if form has been s
   // false twice
   
   $emptyCount1 = 0;
-  foreach ($exerciseNameArray as $exercise) {
-    if ($exercise === ''){
+  foreach ($exerciseNameArray as $exerciseCheck) {
+    if ($exerciseCheck === ''){
       $emptyCount1 = $emptyCount1+1;
     }
   }
 
   $emptyCount2 = 0;
-  foreach ($oneRmArray as $oneRm) {
-    if ($oneRm === ''){
+  foreach ($oneRmArray as $oneRmCheck) {
+    if ($oneRmCheck === ''){
       $emptyCount2 = $emptyCount2+1;
     }
   }
 
-  if(($emptyCount1 < 3)  && ($emptyCount2 < 3)){
-    echo "Thanks for entering info";
+  if (($emptyCount1 < 3)  && ($emptyCount2 < 3)){
+    // echo "Thanks for entering info";
+
+    foreach ($exerciseNameArray as $exercise){//loop over each exercise to get each exercise (BP/SQ/RDL)
+      foreach ($oneRmArray as $oneRm) {
+        if (($oneRm ==='') || ($exercise ==='')){
+          continue;
+        }
+        for ($percentage=70; $percentage<=80; $percentage+=5) {
+          echo "$percentage%<br>";
+          // Percentage: 70%
+          $weightToUse = (($percentage/100) * (intval($oneRm)));
+          echo "$exercise: $weightToUse kg<br>";
+          // BP: 14kg 
+        }
+      }
+      
+   
+      
+// weight to use will be consistent for all 70%~95%
+
+    
+        // Own loop
+        // $exercise;
+  //   Percentages range 70~80
+  //     For loop for this
+  //   Percentages range 85+90
+  //     For loop for this
+  //   Percentrages range 95
+  //     For loop for this 
+  
+  // Repeat for each exercise
+  
+    }
+  
+    }
   } else{
-    var_dump($emptyCount1)."<br>";
-    var_dump($emptyCount2)."<br>";
     echo '<p class = "error">Error, name at least one exercise and one rep max </p>';
   }
-}
-  // $emptyCount2 = 0;
-  // foreach($oneRmArray as $oneRm) {
-  //   if (array_filter())
-  // }
 
-
-  // If they submitted an answer
-  // Give an error if they clicked submit but without a value
-
-
-
-
-
-// if ($_POST['oneRm'] === NULL) {
-//   $oneRm = array_map('intval', $_POST['oneRm']);
-//   var_dump($oneRm);
+// for ($percentage=70; $percentage <=80; $percentage+=5) {
+//   echo $percentage;
 // }
 
+// $exerciseNameArray = $_POST['exerciseName'];
+// $oneRmArray = $_POST['oneRm'];
 
 // Create template for 70/75/80%
 // 3 sets 5 reps
@@ -70,8 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){ // checking to see if form has been s
 // Create template for 95%
   //3 set x 1 rep
 
-
 // Automate that if its 70~80% print
+
  // 70%
  // 3 sets 5 reps
  // Weight: 
