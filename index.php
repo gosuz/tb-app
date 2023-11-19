@@ -24,11 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){ // checking to see if form has been 
   }
 
   if (($emptyCount1 < 3)  && ($emptyCount2 < 3)){
-    foreach ($exerciseNameArray as $exercise){//loop over each exercise to get each exercise (BP/SQ/RDL)
-      foreach ($oneRmArray as $oneRm) {
-        if (($oneRm ==='') || ($exercise ==='')){
-          continue;
-        }
+    foreach (array_combine($exerciseNameArray, $oneRmArray) as $exercise => $oneRm) {
+      if (($oneRm ==='') || ($exercise ==='')){
+        continue;
+      }
+
         for ($percentage=70, $i=1; $percentage<=95, $i<=6; $percentage+=5, $i++) {
           if ($percentage <= 80){ //70~80%
             echo "Week $i<br>$percentage%<br>";
@@ -58,9 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){ // checking to see if form has been 
           }
         }
       }
-    }
-    }
-    else{
+    } else{
       echo '<p class = "error">Error, name at least one exercise and one rep max </p>';
     }
   }
@@ -112,3 +110,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){ // checking to see if form has been 
   </div>
   </body>
 </html>
+
+
+<!-- 
+// foreach ($exerciseNameArray as $exercise){//loop over each exercise to get each exercise (BP/SQ/RDL)
+    //   echo "Hello<br>";
+    //   //loop over each 1RM
+    //   var_dump("exercise: $exercise");
+    //   foreach ($oneRmArray as $oneRm) {
+    //     if (($oneRm ==='') || ($exercise ==='')){
+    //       var_dump("oneRm: $oneRm");
+    //       continue;
+          // Check if its empty, if it empty don't do anything -->
