@@ -3,22 +3,11 @@
 $setsReps70_80 = "3 sets x 5 reps";
 $setsReps85_90 = "3 sets x 3 reps";
 $setsReps95 = "3 sets x 1 rep";
-// Input from the user
-// Convert the input we got from a string -> integers
 
 $exerciseNameArray = $_POST['exerciseName'];
 $oneRmArray = $_POST['oneRm'];
-// is the key oneRm? or the position??
 
-// When page loads, input will be empty but don't give an error
-if ($_SERVER['REQUEST_METHOD'] == 'POST'){ // checking to see if form has been submitted
-  // At least 1 1RM and 1 exercise name needs to be submitted
-
-  // if there is less than one item in the array, print the error
-
-  // '' will give me FALSE
-  // if '' is false at least twice, print, print error
-  // false twice
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){ // checking to see if form has been submitted
   
   $emptyCount1 = 0;
   foreach ($exerciseNameArray as $exerciseCheck) {
@@ -35,93 +24,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){ // checking to see if form has been s
   }
 
   if (($emptyCount1 < 3)  && ($emptyCount2 < 3)){
-    // echo "Thanks for entering info";
-
     foreach ($exerciseNameArray as $exercise){//loop over each exercise to get each exercise (BP/SQ/RDL)
       foreach ($oneRmArray as $oneRm) {
         if (($oneRm ==='') || ($exercise ==='')){
           continue;
         }
-        for ($percentage=70; $percentage<=80; $percentage+=5) {
-          echo "$percentage%<br>";
-          // Percentage: 70%
-          $weightToUse = (($percentage/100) * (intval($oneRm)));
-          echo "$exercise: $weightToUse kg<br>";
-          // BP: 14kg 
+        for ($percentage=70, $i=1; $percentage<=95, $i<=6; $percentage+=5, $i++) {
+          if ($percentage <= 80){ //70~80%
+            echo "Week $i<br>$percentage%<br>";
+            // Percentage: 70%
+            $weightToUse = (($percentage/100) * (intval($oneRm)));
+            echo "$exercise: $weightToUse kg<br>";
+            // BP: 14kg 
+            echo "$setsReps70_80<br><br>";
+            // 
+          }
+          
+          if (($percentage>80) && ($percentage<=90)){ //85~90%
+            echo "Week $i<br>$percentage%<br>";
+            // Percentage: 70%
+            $weightToUse = (($percentage/100) * (intval($oneRm)));
+            echo "$exercise: $weightToUse kg<br>";
+            // BP: 14kg 
+            echo "$setsReps85_90<br><br>";
+
+          } if($percentage>90) { // 95%
+            echo "Week $i<br>$percentage%<br>";
+            // Percentage: 70%
+            $weightToUse = (($percentage/100) * (intval($oneRm)));
+            echo "$exercise: $weightToUse kg<br>";
+            // BP: 14kg 
+            echo "$setsReps95<br><br>";
+          }
         }
       }
-      
-   
-      
-// weight to use will be consistent for all 70%~95%
-
-    
-        // Own loop
-        // $exercise;
-  //   Percentages range 70~80
-  //     For loop for this
-  //   Percentages range 85+90
-  //     For loop for this
-  //   Percentrages range 95
-  //     For loop for this 
-  
-  // Repeat for each exercise
-  
     }
-  
     }
-  } else{
-    echo '<p class = "error">Error, name at least one exercise and one rep max </p>';
+    else{
+      echo '<p class = "error">Error, name at least one exercise and one rep max </p>';
+    }
   }
-
-// for ($percentage=70; $percentage <=80; $percentage+=5) {
-//   echo $percentage;
-// }
-
-// $exerciseNameArray = $_POST['exerciseName'];
-// $oneRmArray = $_POST['oneRm'];
-
-// Create template for 70/75/80%
-// 3 sets 5 reps
-// Weight: (input from user *0.7/0.75/0.8)
-
-
-// Create template for 85%/ 90%
-  //3 set 3 reps
-
-// Create template for 95%
-  //3 set x 1 rep
-
-// Automate that if its 70~80% print
-
- // 70%
- // 3 sets 5 reps
- // Weight: 
- // Week: 
-
- // 75%
- // 3 sets 5 reps
- // Weight: 
- // Week: 
-
- // 80%
- // 3 sets 5 reps
- // Weight: 
- // Week: 
-
- // Repeat for each exercise
- // Output for each percentage:
-
-  // Percentage: 
-  // 3 sets 5 reps
-  // Weight: 
-  // Week: 
-
-// reps change by percentage
-
-
-
-
 ?>
 
 <!DOCTYPE html>
